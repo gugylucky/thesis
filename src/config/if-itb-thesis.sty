@@ -35,8 +35,19 @@
 \usepackage{titlesec}       % Package Format judul
 \usepackage{parskip}
 
+% Mengatasi bug pada update terbaru titlesec yang menyebabkan section number hilang
+\usepackage{etoolbox}
+ \makeatletter
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\patchcmd{\ttlh@hang}{\noindent}{}{}{}
+\makeatother
+
+% supaya tidak mengeluarkan warning untuk babel/polyglossia
+\usepackage{csquotes}
+
 % Line satu setengah spasi
 \renewcommand{\baselinestretch}{1.5}
+\usepackage{setspace} % untuk mengatur spacing di bagian-bagian tertentu
 
 % Setting judul
 \chapterfont{\centering \Large}
@@ -49,9 +60,12 @@
 \setcounter{secnumdepth}{3}
 
 \makeatletter
-
+\renewcommand\Large{\@setfontsize\Large{15pt}{18}}
 \makeatother
 
 % Counter untuk figure dan table.
 \counterwithin{figure}{section}
 \counterwithin{table}{section}
+
+% membuat environment italic, khusus untuk abstract
+\newenvironment{italic}{\begin{quote}\itshape}{\end{quote}}

@@ -23,45 +23,60 @@
 \begin{document}
 
     %Basic configuration
-    \title{Panduan Tugas Akhir Informatika}
+    \title{Penggunaan Model Transformer Pada \textit{Audiovisual Speech Recognition} Untuk Bahasa Indonesia}
     \date{}
     \author{
-        Peb Ruswono Aryan \\
-        NIM 13502044
+        Gugy Lucky Khamdani \\
+        NIM: 23517041
     }
 
     \pagenumbering{roman}
     \setcounter{page}{0}
 
     \input{chapters/cover}
-    \input{chapters/approval}
-    \input{chapters/statement}
 
     \pagestyle{plain}
 
+	\titlespacing{\chapter}{0pt}{-20pt}{15pt}
+	
+    \titleformat{\chapter}[hang]
+    	{\bfseries \centering \Large \MakeUppercase}
+    	{}
+    	{1em}
+    	{}
+
     \input{chapters/abstract-id}
     \input{chapters/abstract-en}
+    \input{chapters/approval}
+    \input{chapters/guidelines}
     \input{chapters/forewords}
-
+	
     \titleformat*{\section}{\centering\bfseries\Large\MakeUpperCase}
-
+    
     \tableofcontents
     \listoffigures
     \listoftables
+    \clearpage
 
-    \titleformat*{\section}{\bfseries\Large}
+    \titleformat*{\section}{\bfseries\Large}    
     \pagenumbering{arabic}
 
     %----------------------------------------------------------------%
     % Konfigurasi Bab
     %----------------------------------------------------------------%
-    \setcounter{page}{0}
-    \renewcommand{\chaptername}{BAB}
+    \setcounter{page}{1}
+    %\renewcommand{\chaptername}{BAB}
     \renewcommand{\thechapter}{\Roman{chapter}}
+    
+    \titleformat{\chapter}[hang]
+    	{\bfseries \centering \Large}
+    	{Bab \thechapter}
+    	{1em}
+    	{}
     %----------------------------------------------------------------%
 
     %----------------------------------------------------------------%
-    % Dafter Bab
+    % Daftar Bab
     % Untuk menambahkan daftar bab, buat berkas bab misalnya `chapter-6` di direktori `chapters`, dan masukkan ke sini.
     %----------------------------------------------------------------%
     \input{chapters/chapter-1}
@@ -72,7 +87,7 @@
     %----------------------------------------------------------------%
 
     % Daftar pustaka
-    \printbibliography
+    \printbibliography[title=Daftar Pustaka]
 
     % Index
     \appendix
