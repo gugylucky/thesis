@@ -19,3 +19,4 @@ thesis.pdf
 output/*
 build/*
 src/build/*
+!src/build/thesis.pdf
