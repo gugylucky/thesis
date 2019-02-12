@@ -1,19 +1,254 @@
-@book{knuth2001art,
-    title={The Art of Computer Programming: Fundamental Algorithms},
-    author={Knuth, D.E.},
-    number={v. 1},
-    isbn={9780201896831},
-    series={The Art of Computer Programming: Fundamental Algorithms},
-    year={2001},
-    publisher={Addison-Wesley}
+@article{Achmad2015,
+abstract = {A speech therapeutic tool has been developed to help Indonesian deaf kids learn how to pronounce words correctly. The applied technique utilized lip movement frames captured by a camera and inputted them in to a pattern recognition module which can differentiate between different vowel phonemes pronunciation in Indonesian language. In this paper, we used one dimensional Hidden Markov Model (HMM) method for pattern recognition module. The feature used for the training and test data were composed of six key-points of 20 sequential frames representing certain phonemes. Seventeen Indonesian phonemes were chosen from the words usually used by deaf kid special school teachers for speech therapy. The results showed that the recognition rates varied on different phonemes articulation, ie. 78{\%} for bilabial/palatal phonemes and 63{\%} for palatal only phonemes. The condition of the lips also had effect on the result, where female with red lips has 0.77 correlation coefficient, compare to 0.68 for pale lips and 0.38 for male with mustaches. 1. Introduction Visual communication plays important role in noisy environment as well as for hearing impaired person, which audio communication is not possible. Many researchers have developing methods to overcome these problems; one of them is by lip-reading. Lip movements during prononciation syllables or words will form specific patterns. From these lip patterns, we can find out what was said by other people without hearing his/her voice. Image processing and pattern recognition fileds have been growing very fast, allowing us to establish a system for automatic lip reading. Petajan [1] suggested that visual system will help speech recognition processes become more effective. Yau et al [2] introduced a technique of speech recognition combined with a visual speech model based on facial movement video. Ma et al [3] developed a Bayesian model for lip-reading patterns under moderate noise exposure. Meanwhile, along with the development of communication tools, Kim et al [4] developed a method of lip-reading in a real time fashion for smart phones. Lip-reading method applied to several languages was developed by Saitoh et al [5], while Shin et al [6] developed this system for Korean language. One focus of research in lip reading is on the selection pattern recognition method. How et al [7] performed lip-reading on syllables /ba/, /da/, /fa/, /la/, /ma/ using Artificial Neural Network (ANN) on video, audio, the combination of both. Another widely used method is the method of Hidden Markov Model (HMM). Puviarasan et al [8] used HMM method to recognize 33 words in English by people with hearing impairments. Two features are used, namely discrete cosine transform (DCT) and discrete wavelet transform (DWT), with recognition rate of 91{\%} and 97{\%} respectively. Nursing [9] conducted research on lip-reading of three French syllables using HMM and our-point method for the feature extraction; namely: the point above, bottom, right, and left. The system can read correctly the syllables /ba/ 63.64{\%} , /be/ 72.73{\%} and /bou/ 81.82{\%} . Lip-reading system for Indonesian phoneme itself has been developed by Faridah et al [10] and applied as a speech therapeutic tool for deaf kids in Indonesia. The system used Neural Network for lip pattern recognition in pronuncing vowel phonemes: /a/, /i/, /u/, /e/, and /o/ in Indonesian language. However, the system was not able to provide satisfactory results. In this paper, we use HMM method for lip pattern recognition in pronunciation of phonemes in Indonesian language. The phonemes to be recognized are representing three},
+author = {Achmad, Balza and Fadillah, Laras},
+doi = {10.12928/TELKOMNIKA.v13i1.1302},
+journal = {TELKOMNIKA},
+keywords = {hidden markov model,lip motion,pattern recognition,syllable pronounciacion},
+number = {1},
+title = {{Lip Motion Pattern Recognition for Indonesian Syllable Pronunciation Utilizing Hidden Markov Model Method}},
+url = {http://www.journal.uad.ac.id/index.php/TELKOMNIKA/article/viewFile/1302/pdf{\_}143},
+volume = {13},
+year = {2015}
 }
-@INPROCEEDINGS{4026885,
-    author={W. Vogels},
-    booktitle={2006 IEEE International Conference on Services Computing (SCC'06)},
-    title={Web Services at Amazon.com},
-    year={2006},
-    pages={xxii-xxii},
-    keywords={Distributed computing;Technological innovation;Web services},
-    doi={10.1109/SCC.2006.116},
-    month={Sept}
+@inproceedings{Arifin2013,
+author = {Arifin and Muljono and Sumpeno, Surya and Hariadi, Mochamad},
+booktitle = {2013 IEEE International Conference on Computational Intelligence and Cybernetics (CYBERNETICSCOM)},
+doi = {10.1109/CyberneticsCom.2013.6865781},
+isbn = {978-1-4673-6053-1},
+month = {dec},
+pages = {57--61},
+publisher = {IEEE},
+title = {{Towards building Indonesian viseme: A clustering-based approach}},
+url = {http://ieeexplore.ieee.org/document/6865781/},
+year = {2013}
+}
+@article{Assael2016,
+abstract = {Lipreading is the task of decoding text from the movement of a speaker's mouth. Traditional approaches separated the problem into two stages: designing or learn-ing visual features, and prediction. More recent deep lipreading approaches are end-to-end trainable (Wand et al., 2016; Chung {\&} Zisserman, 2016a). However, existing work on models trained end-to-end perform only word classification, rather than sentence-level sequence prediction. Studies have shown that human lipreading performance increases for longer words (Easton {\&} Basala, 1982), in-dicating the importance of features capturing temporal context in an ambiguous communication channel. Motivated by this observation, we present LipNet, a model that maps a variable-length sequence of video frames to text, making use of spatiotemporal convolutions, a recurrent network, and the connectionist tempo-ral classification loss, trained entirely end-to-end. To the best of our knowledge, LipNet is the first end-to-end sentence-level lipreading model that simultaneously learns spatiotemporal visual features and a sequence model. On the GRID corpus, LipNet achieves 95.2{\%} accuracy in sentence-level, overlapped speaker split task, outperforming experienced human lipreaders and the previous 86.4{\%} word-level state-of-the-art accuracy (Gergen et al., 2016).},
+author = {Assael, Yannis M and Shillingford, Brendan and Whiteson, Shimon and {De Freitas}, Nando},
+title = {{LIPNET: END-TO-END SENTENCE-LEVEL LIPREADING}},
+url = {https://arxiv.org/pdf/1611.01599.pdf},
+year = {2016}
+}
+@article{Bahdanau2015,
+abstract = {Neural machine translation is a recently proposed approach to machine translation. Unlike the traditional statistical machine translation, the neural machine translation aims at building a single neural network that can be jointly tuned to maximize the translation performance. The models proposed recently for neural machine translation often belong to a family of encoder-decoders and consists of an encoder that encodes a source sentence into a fixed-length vector from which a decoder generates a translation. In this paper, we conjecture that the use of a fixed-length vector is a bottleneck in improving the performance of this basic encoder-decoder architecture, and propose to extend this by allowing a model to automatically (soft-)search for parts of a source sentence that are relevant to predicting a target word, without having to form these parts as a hard segment explicitly. With this new approach, we achieve a translation performance comparable to the existing state-of-the-art phrase-based system on the task of English-to-French translation. Furthermore, qualitative analysis reveals that the (soft-)alignments found by the model agree well with our intuition.},
+archivePrefix = {arXiv},
+arxivId = {1409.0473},
+author = {Bahdanau, Dzmitry and Cho, Kyunghyun and Bengio, Yoshua},
+eprint = {1409.0473},
+month = {sep},
+title = {{Neural Machine Translation by Jointly Learning to Align and Translate}},
+url = {http://arxiv.org/abs/1409.0473},
+year = {2015}
+}
+@book{Calvert2004,
+author = {Calvert, Gemma A. and Spence, Charles and Stein, Barry E.},
+isbn = {0262033216},
+title = {{The Handbook of Multisensory Processes}},
+year = {2004}
+}
+@article{Chan2015,
+abstract = {We present Listen, Attend and Spell (LAS), a neural network that learns to transcribe speech utterances to characters. Unlike traditional DNN-HMM models, this model learns all the components of a speech recognizer jointly. Our system has two components: a listener and a speller. The listener is a pyramidal recurrent network encoder that accepts filter bank spectra as inputs. The speller is an attention-based recurrent network decoder that emits characters as outputs. The network produces character sequences without making any independence assumptions between the characters. This is the key improvement of LAS over previous end-to-end CTC models. On a subset of the Google voice search task, LAS achieves a word error rate (WER) of 14.1{\%} without a dictionary or a language model, and 10.3{\%} with language model rescoring over the top 32 beams. By comparison, the state-of-the-art CLDNN-HMM model achieves a WER of 8.0{\%}.},
+archivePrefix = {arXiv},
+arxivId = {1508.01211},
+author = {Chan, William and Jaitly, Navdeep and Le, Quoc V. and Vinyals, Oriol},
+eprint = {1508.01211},
+month = {aug},
+title = {{Listen, Attend and Spell}},
+url = {http://arxiv.org/abs/1508.01211},
+year = {2015}
+}
+@article{Cho2014,
+abstract = {Neural machine translation is a relatively new approach to statistical machine translation based purely on neural networks. The neural machine translation models often consist of an encoder and a decoder. The encoder extracts a fixed-length representation from a variable-length input sentence, and the decoder generates a correct translation from this representation. In this paper, we focus on analyzing the properties of the neural machine translation using two models; RNN Encoder--Decoder and a newly proposed gated recursive convolutional neural network. We show that the neural machine translation performs relatively well on short sentences without unknown words, but its performance degrades rapidly as the length of the sentence and the number of unknown words increase. Furthermore, we find that the proposed gated recursive convolutional network learns a grammatical structure of a sentence automatically.},
+archivePrefix = {arXiv},
+arxivId = {1409.1259},
+author = {Cho, Kyunghyun and van Merrienboer, Bart and Bahdanau, Dzmitry and Bengio, Yoshua},
+eprint = {1409.1259},
+month = {sep},
+title = {{On the Properties of Neural Machine Translation: Encoder-Decoder Approaches}},
+url = {http://arxiv.org/abs/1409.1259},
+year = {2014}
+}
+@article{Cho2014,
+abstract = {In this paper, we propose a novel neural network model called RNN Encoder-Decoder that consists of two recurrent neural networks (RNN). One RNN encodes a sequence of symbols into a fixed-length vector representation, and the other decodes the representation into another sequence of symbols. The encoder and decoder of the proposed model are jointly trained to maximize the conditional probability of a target sequence given a source sequence. The performance of a statistical machine translation system is empirically found to improve by using the conditional probabilities of phrase pairs computed by the RNN Encoder-Decoder as an additional feature in the existing log-linear model. Qualitatively, we show that the proposed model learns a semantically and syntactically meaningful representation of linguistic phrases.},
+archivePrefix = {arXiv},
+arxivId = {1406.1078},
+author = {Cho, Kyunghyun and van Merrienboer, Bart and Gulcehre, Caglar and Bahdanau, Dzmitry and Bougares, Fethi and Schwenk, Holger and Bengio, Yoshua},
+eprint = {1406.1078},
+month = {jun},
+title = {{Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation}},
+url = {http://arxiv.org/abs/1406.1078 http://emnlp2014.org/papers/pdf/EMNLP2014179.pdf},
+year = {2014}
+}
+@article{Chung2014,
+abstract = {In this paper we compare different types of recurrent units in recurrent neural net-works (RNNs). Especially, we focus on more sophisticated units that implement a gating mechanism, such as a long short-term memory (LSTM) unit and a re-cently proposed gated recurrent unit (GRU). We evaluate these recurrent units on the tasks of polyphonic music modeling and speech signal modeling. Our exper-iments revealed that these advanced recurrent units are indeed better than more traditional recurrent units such as tanh units. Also, we found GRU to be compa-rable to LSTM.},
+author = {Chung, Junyoung and Gulcehre, Caglar and Cho, Kyunghyun and Bengio, Yoshua},
+title = {{Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling}},
+url = {https://arxiv.org/pdf/1412.3555.pdf},
+year = {2014}
+}
+@article{Chung2016,
+abstract = {Our aim is to recognise the words being spoken by a talking face, given only the video but not the audio. Existing works in this area have focussed on trying to recognise a small number of utterances in controlled environments (e.g. digits and alphabets), partially due to the shortage of suitable datasets. We make two novel contributions: first, we develop a pipeline for fully automated large-scale data collection from TV broadcasts. With this we have generated a dataset with over a million word instances, spoken by over a thousand different people; second, we develop CNN architectures that are able to effectively learn and recognize hundreds of words from this large-scale dataset. We also demonstrate a recognition performance that exceeds the state of the art on a standard public benchmark dataset.},
+author = {Chung, Joon Son and Zisserman, Andrew},
+title = {{Lip Reading in the Wild}},
+url = {https://www.robots.ox.ac.uk/{~}vgg/publications/2016/Chung16/chung16.pdf},
+year = {2016}
+}
+@article{Chung2017,
+abstract = {The goal of this work is to recognise phrases and sen-tences being spoken by a talking face, with or without the audio. Unlike previous works that have focussed on recog-nising a limited number of words or phrases, we tackle lip reading as an open-world problem – unconstrained natural language sentences, and in the wild videos. Our key contributions are: (1) a 'Watch, Listen, Attend and Spell' (WLAS) network that learns to transcribe videos of mouth motion to characters; (2) a curriculum learning strategy to accelerate training and to reduce overfitting; (3) a 'Lip Reading Sentences' (LRS) dataset for visual speech recognition, consisting of over 100,000 natural sentences from British television. The WLAS model trained on the LRS dataset surpasses the performance of all previous work on standard lip read-ing benchmark datasets, often by a significant margin. This lip reading performance beats a professional lip reader on videos from BBC television, and we also demonstrate that if audio is available, then visual information helps to improve speech recognition performance.},
+author = {Chung, Joon Son and Senior, Andrew and Vinyals, Oriol and Zisserman, Andrew},
+journal = {IEEE Conference on Computer Vision and Pattern Recognition},
+title = {{Lip Reading Sentences in the Wild}},
+url = {http://openaccess.thecvf.com/content{\_}cvpr{\_}2017/papers/Chung{\_}Lip{\_}Reading{\_}Sentences{\_}CVPR{\_}2017{\_}paper.pdf},
+year = {2017}
+}
+@article{Garg2016,
+abstract = {Here we present various methods to predict words and phrases from only video without any audio signal. We em-ploy a VGGNet pre-trained on human faces of celebrities from IMDB and Google Images [1], and explore different ways of using it to handle these image sequences. The VGGNet is trained on images concatenated from multiple frames in each sequence, as well as used in conjunction with LSTMs for extracting temporal information. While the LSTM models fail to outperform other methods for a va-riety of reasons, the concatenated image model that uses nearest-neighbor interpolation performed well, achieving a validation accuracy of 76{\%}.},
+author = {Garg, Amit and Noyola, Jonathan and Bagadia, Sameep},
+title = {{Lip reading using CNN and LSTM}},
+url = {http://cs231n.stanford.edu/reports/2016/pdfs/217{\_}Report.pdf},
+year = {2016}
+}
+@techreport{Han2018,
+abstract = {In this paper we show how we have achieved the state-of-the-art performance on the industry-standard NIST 2000 Hub5 English evaluation set. We propose densely connected LSTMs, (namely, dense LSTMs), inspired by the densely connected convolutional networks recently introduced for image classification tasks. It is shown that the proposed dense LSTMs would provide more reliable performances as compared to the conventional, residual LSTMs as more LSTM layers are stacked in neural networks. We also propose an acoustic model adaptation scheme that simply averages the parameters of a seed neural network acoustic model and its adapted version. This method was applied with the CallHome training corpus and improved individual system performances by on average 6.1{\%} (relative) against the Call-Home portion of the evaluation set with no performance loss on the Switchboard portion. With RNN-LM rescoring and lattice combination on the 5 systems trained across three different phone sets, our 2017 speech recognition system has obtained 5.0{\%} and 9.1{\%} on Switchboard and CallHome, respectively, both of which are the best word error rates reported thus far. According to IBM in their latest work to compare human and machine transcriptions, our reported Switchboard word error rate can be considered to surpass the human parity (5.1{\%}) of transcribing conversational telephone speech. We also share the performance numbers of our system on non-telephony environments for readers' benefits.},
+archivePrefix = {arXiv},
+arxivId = {arXiv:1801.00059v2},
+author = {Han, Kyu J and Chandrashekaran, Akshay and Kim, Jungsuk and Lane, Ian},
+eprint = {arXiv:1801.00059v2},
+keywords = {Index Terms: Densely connected LSTM,conversational speech recognition,neural network acoustic model adaptation},
+title = {{The CAPIO 2017 Conversational Speech Recognition System}},
+url = {https://catalog.ldc.upenn.edu/LDC97L20},
+year = {2018}
+}
+@article{Hochreiter1997,
+abstract = {Learning to store information over extended time intervals via recurrent backpropagation takes a very long time, mostly due to insuucient, decaying error back We brieey review Hochreiter's 1991 analysis of this problem, then address it by introducing a novel, eecient, gradient-based method called $\backslash$Long Short-Term Memory" (LSTM). Truncating the gradient where this does not do harm, LSTM can learn to bridge minimal time lags in excess of 1000 discrete time steps by enforcing constant error through $\backslash$constant error carrousels" within special units. Multiplicative gate units learn to open and close access to the constant error LSTM is local in space and time; its computational complexity per time step and weight is O(1). Our experiments with artiicial data involve local, distributed, real-valued, and noisy pattern representations. In comparisons with RTRL, BPTT, Recurrent Cascade-Correlation, Elman nets, and Neural Sequence Chunking, LSTM leads to many more successful runs, and learns much faster. LSTM also solves complex, artiicial long time lag tasks that have never been solved by previous recurrent network algorithms.},
+author = {Hochreiter, Sepp and {Urgen Schmidhuber}, Jj},
+journal = {Neural Computation},
+number = {8},
+pages = {1735--1780},
+title = {{Long Short-Term Memory}},
+url = {http://www7.informatik.tu-muenchen.de/{~}hochreit http://www.idsia.ch/{~}juergen},
+volume = {9},
+year = {1997}
+}
+@article{Karpathy2014,
+abstract = {Convolutional Neural Networks (CNNs) have been es-tablished as a powerful class of models for image recog-nition problems. Encouraged by these results, we pro-vide an extensive empirical evaluation of CNNs on large-scale video classification using a new dataset of 1 million YouTube videos belonging to 487 classes. We study mul-tiple approaches for extending the connectivity of a CNN in time domain to take advantage of local spatio-temporal information and suggest a multiresolution, foveated archi-tecture as a promising way of speeding up the training. Our best spatio-temporal networks display significant per-formance improvements compared to strong feature-based baselines (55.3{\%} to 63.9{\%}), but only a surprisingly mod-est improvement compared to single-frame models (59.3{\%} to 60.9{\%}). We further study the generalization performance of our best model by retraining the top layers on the UCF-101 Action Recognition dataset and observe significant per-formance improvements compared to the UCF-101 baseline model (63.3{\%} up from 43.9{\%}).},
+author = {Karpathy, Andrej and Toderici, George and Shetty, Sanketh and Leung, Thomas and Sukthankar, Rahul and Fei-Fei, Li},
+title = {{Large-scale Video Classification with Convolutional Neural Networks}},
+url = {http://cs.stanford.edu/people/karpathy/deepvideo},
+year = {2014}
+}
+@article{McGurk1976,
+abstract = {Hearing lips and seeing voices},
+author = {McGurk, Harry and MacDonald, John},
+doi = {10.1038/264746a0},
+issn = {0028-0836},
+journal = {Nature},
+month = {dec},
+number = {5588},
+pages = {746--748},
+publisher = {Nature Publishing Group},
+title = {{Hearing lips and seeing voices}},
+url = {http://www.nature.com/doifinder/10.1038/264746a0},
+volume = {264},
+year = {1976}
+}
+@article{Noda2014,
+abstract = {In recent automatic speech recognition studies, deep learning architecture applications for acoustic modeling have eclipsed conventional sound features such as Mel-frequency cepstral co-efficients. However, for visual speech recognition (VSR) stud-ies, handcrafted visual feature extraction mechanisms are still widely utilized. In this paper, we propose to apply a convo-lutional neural network (CNN) as a visual feature extraction mechanism for VSR. By training a CNN with images of a speaker's mouth area in combination with phoneme labels, the CNN acquires multiple convolutional filters, used to extract vi-sual features essential for recognizing phonemes. Further, by modeling the temporal dependencies of the generated phoneme label sequences, a hidden Markov model in our proposed sys-tem recognizes multiple isolated words. Our proposed system is evaluated on an audio-visual speech dataset comprising 300 Japanese words with six different speakers. The evaluation re-sults of our isolated word recognition experiment demonstrate that the visual features acquired by the CNN significantly out-perform those acquired by conventional dimensionality com-pression approaches, including principal component analysis.},
+author = {Noda, Kuniaki and Yamaguchi, Yuki and Nakadai, Kazuhiro and Okuno, Hiroshi G and Ogata, Tetsuya},
+keywords = {Convolu-tional Neural Network,Index Terms,Lipreading,Visual Feature Extraction},
+title = {{Lipreading using Convolutional Neural Network}},
+url = {https://pdfs.semanticscholar.org/1d2f/47c56f9e2545c5381bc41d3efbe7f4be2d61.pdf},
+year = {2014}
+}
+@article{Maulana2018,
+abstract = {An audio-visual corpus has been collected to support the use of common material in speech perception and automatic speech recognition studies. The corpus consists of high-quality audio and video recordings of 1000 sentences spoken by each of 34 talkers. Sentences are simple, syntactically identical phrases such as “place green at B 4 now.” Intelligibility tests using the audio signals suggest that the material is easily identifiable in quiet and low levels of stationary noise. The annotated corpus is available on the web for research use.},
+author = {Maulana, Muhammad Rizki Aulia Rahman and Fanany, Mohamad Ivan},
+doi = {10.1109/ICACSIS.2017.8355062},
+isbn = {9781538631720},
+issn = {15737675},
+journal = {2017 International Conference on Advanced Computer Science and Information Systems, ICACSIS 2017},
+pages = {381--385},
+pmid = {17139705},
+title = {{Indonesian audio-visual speech corpus for multimodal automatic speech recognition}},
+volume = {2018-Janua},
+year = {2018}
+}
+@article{Sutskever2014,
+abstract = {Deep Neural Networks (DNNs) are powerful models that have achieved excel-lent performance on difficult learning tasks. Although DNNs work well whenever large labeled training sets are available, they cannot be used to map sequences to sequences. In this paper, we present a general end-to-end approach to sequence learning that makes minimal assumptions on the sequence structure. Our method uses a multilayered Long Short-Term Memory (LSTM) to map the input sequence to a vector of a fixed dimensionality, and then another deep LSTM to decode the target sequence from the vector. Our main result is that on an English to French translation task from the WMT-14 dataset, the translations produced by the LSTM achieve a BLEU score of 34.8 on the entire test set, where the LSTM's BLEU score was penalized on out-of-vocabulary words. Additionally, the LSTM did not have difficulty on long sentences. For comparison, a phrase-based SMT system achieves a BLEU score of 33.3 on the same dataset. When we used the LSTM to rerank the 1000 hypotheses produced by the aforementioned SMT system, its BLEU score increases to 36.5, which is close to the previous state of the art. The LSTM also learned sensible phrase and sentence representations that are sensitive to word order and are relatively invariant to the active and the passive voice. Fi-nally, we found that reversing the order of the words in all source sentences (but not target sentences) improved the LSTM's performance markedly, because doing so introduced many short term dependencies between the source and the target sentence which made the optimization problem easier.},
+author = {Sutskever, Ilya and Vinyals, Oriol and Le, Quoc V},
+journal = {Eletronic Proceedings of Neural Information Processing Systems 2014},
+title = {{Sequence to Sequence Learning with Neural Networks}},
+url = {https://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks.pdf},
+year = {2014}
+}
+@article{Vaswani2017,
+abstract = {The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles, by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.0 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature.},
+author = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N and Kaiser, {\L}ukasz and Polosukhin, Illia},
+journal = {Eletronic Proceedings of Neural Information Processing Systems 2017},
+title = {{Attention Is All You Need}},
+url = {http://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf},
+year = {2017}
+}
+@article{Venugopalan2015,
+abstract = {Real-world videos often have complex dynamics; and methods for generating open-domain video descriptions should be sensitive to temporal structure and allow both in-put (sequence of frames) and output (sequence of words) of variable length. To approach this problem, we propose a novel end-to-end sequence-to-sequence model to generate captions for videos. For this we exploit recurrent neural net-works, specifically LSTMs, which have demonstrated state-of-the-art performance in image caption generation. Our LSTM model is trained on video-sentence pairs and learns to associate a sequence of video frames to a sequence of words in order to generate a description of the event in the video clip. Our model naturally is able to learn the tem-poral structure of the sequence of frames as well as the se-quence model of the generated sentences, i.e. a language model. We evaluate several variants of our model that ex-ploit different visual features on a standard set of YouTube videos and two movie description datasets (M-VAD and MPII-MD).},
+author = {Venugopalan, Subhashini and Rohrbach, Marcus and Donahue, Jeff and Mooney, Raymond and Darrell, Trevor and Saenko, Kate},
+journal = {International Conference on Computer Vision 2015},
+title = {{Sequence to Sequence – Video to Text}},
+url = {http://openaccess.thecvf.com/content{\_}iccv{\_}2015/papers/Venugopalan{\_}Sequence{\_}to{\_}Sequence{\_}ICCV{\_}2015{\_}paper.pdf},
+year = {2015}
+}
+@article{Vinyals2014,
+archivePrefix = {arXiv},
+arxivId = {1411.4555},
+author = {Vinyals, Oriol and Toshev, Alexander and Bengio, Samy and Erhan, Dumitru},
+eprint = {1411.4555},
+month = {nov},
+title = {{Show and Tell: A Neural Image Caption Generator}},
+url = {https://arxiv.org/abs/1411.4555},
+year = {2014}
+}
+@article{Wand2016,
+abstract = {Lipreading, i.e. speech recognition from visual-only record-ings of a speaker's face, can be achieved with a processing pipeline based solely on neural networks, yielding signif-icantly better accuracy than conventional methods. Feed-forward and recurrent neural network layers (namely Long Short-Term Memory; LSTM) are stacked to form a single structure which is trained by back-propagating error gra-dients through all the layers. The performance of such a stacked network was experimentally evaluated and compared to a standard Support Vector Machine classifier using conven-tional computer vision features (Eigenlips and Histograms of Oriented Gradients). The evaluation was performed on data from 19 speakers of the publicly available GRID corpus. With 51 different words to classify, we report a best word accuracy on held-out evaluation speakers of 79.6{\%} using the end-to-end neural network-based solution (11.6{\%} improvement over the best feature-based solution evaluated).},
+author = {Wand, Michael and Koutn{\'{i}}k, Jan and Schmidhuber, J{\"{u}}rgen},
+keywords = {Image Recognition,Index Terms— Lipreading,Long Short-Term Memory,Recurrent Neural Networks},
+title = {{Lipreading with Long Short-Term Memory}},
+url = {https://arxiv.org/pdf/1601.08188.pdf},
+year = {2016}
+}
+@techreport{Xiong2017,
+abstract = {We describe the 2017 version of Microsoft's conversational speech recognition system, in which we update our 2016 system with recent developments in neural-network-based acoustic and language modeling to further advance the state of the art on the Switchboard speech recognition task. The system adds a CNN-BLSTM acoustic model to the set of model architectures we combined previously, and includes character-based and dialog session aware LSTM language models in rescoring. For system combination we adopt a two-stage approach, whereby subsets of acoustic models are first combined at the senone/frame level, followed by a word-level voting via confusion networks. We also added a confusion network rescoring step after system combination. The resulting system yields a 5.1{\%} word error rate on the 2000 Switchboard evaluation set.},
+archivePrefix = {arXiv},
+arxivId = {arXiv:1708.06073v2},
+author = {Xiong, W and Wu, L and Alleva, F and Droppo, J and Huang, X and Stolcke, A},
+eprint = {arXiv:1708.06073v2},
+title = {{The Microsoft 2017 Conversational Speech Recognition System}},
+url = {https://arxiv.org/pdf/1708.06073.pdf},
+year = {2017}
+}
+@article{Xu2015,
+abstract = {Inspired by recent work in machine translation and object detection, we introduce an attention based model that automatically learns to describe the content of images. We describe how we can train this model in a deterministic manner using standard backpropagation techniques and stochastically by maximizing a variational lower bound. We also show through visualization how the model is able to automatically learn to fix its gaze on salient objects while generating the cor-responding words in the output sequence. We validate the use of attention with state-of-the-art performance on three benchmark datasets: Flickr9k, Flickr30k and MS COCO.},
+author = {Xu, Kelvin and Ba, Jimmy Lei and Kiros, Ryan and Cho, Kyunghyun and Courville, Aaron and Salakhutdinov, Ruslan and Zemel, Richard S and Bengio, Yoshua},
+journal = {Proceedings of Machine Learning Research},
+title = {{Show, Attend and Tell: Neural Image Caption Generation with Visual Attention}},
+url = {http://proceedings.mlr.press/v37/xuc15.pdf},
+year = {2015}
+}
+@book{Yu2014,
+author = {Yu, Dong and Deng, Li},
+booktitle = {Sadhana},
+doi = {10.1007/BF02747521},
+isbn = {9781447157786},
+issn = {02562499},
+keywords = {Speech recognition,fifth generation computers,pattern recognition,signal processing,speech understanding},
+number = {2},
+title = {{Automatic Speech Recognition: A Deep Learning Approach}},
+volume = {9},
+year = {2014}
+}
+@article{Zhou2014,
+abstract = {Visual speech information plays an important role in automatic speech recognition (ASR) especially when audio is corrupted or even inaccessible. Despite the success of audio-based ASR, the problem of visual speech decoding remains widely open. This paper provides a detailed review of recent advances in this research area. In comparison with the previous survey [97] which covers the whole ASR system that uses visual speech information, we focus on the important questions asked by researchers and summarize the recent studies that attempt to answer them. In particular, there are three questions related to the extraction of visual features, concerning speaker dependency, pose variation and temporal information, respectively. Another question is about audio-visual speech fusion, considering the dynamic changes of modality reliabilities encountered in practice. In addition, the stateof-the-art on facial landmark localization is briefly introduced in this paper. Those advanced techniques can be used to improve the region-of-interest detection, but have been largely ignored when building a visual-based ASR system. We also provide details of audio-visual speech databases. Finally, we discuss the remaining challenges and offer our insights into the future research on visual speech decoding.},
+author = {Zhou, Ziheng and Zhao, Guoying and Hong, Xiaopeng and Pietik{\"{a}}inen, Matti},
+title = {{A review of recent advances in visual speech decoding}},
+url = {https://www.researchgate.net/profile/Ziheng{\_}Zhou/publication/264083813{\_}Final-Version/links/0f31753cdb4cfa1b75000000/Final-Version.pdf},
+year = {2014}
 }

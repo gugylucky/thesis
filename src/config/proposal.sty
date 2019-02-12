@@ -1,18 +1,25 @@
 % Ukuran kertas
 \special{papersize=210mm,297mm}
 
-% Setting margin
+% Times new roman
+%\usepackage{tgtermes} % times font
+
+% Margin: tepi kiri 4 cm dan tepi atas, tepi kanan, serta tepi bawah masing-masing 3 cm
 \usepackage[top=3cm,bottom=3cm,left=4cm,right=3cm]{geometry}
-\usepackage[titles]{tocloft} % buat ngilangin bold di daftar isi
-\usepackage{enumitem} % buat enumerate macem-macem
+
+% Spasi: Baris-baris kalimat naskah tesis berjarak satu setengah spasi.
+\renewcommand{\baselinestretch}{1.5}
+
+% Penyimpangan dari jarak satu setengah spasi tersebut (menjadi satu spasi) dilakukan pada notasi blok yang masuk ke dalam, catatan kaki, judul keterangan dan isi diagram, tabel, gambar, dan daftar pustaka.
+
+% Baris pertama paragraf baru dipisahkan oleh satu baris kosong (jarak satu setengah spasi, ukuran huruf 12) dari baris terakhir paragraf yang mendahuluinya. \bigski
+
 \usepackage{mathptmx}
 
 % Judul bahasa Indonesia
 \usepackage[bahasa]{babel}
 
 % Format citation
-%\usepackage[backend=bibtex,style=alphabetic,citestyle=authoryear]{biblatex}
-
 \usepackage{xstring}
 \def\ReplaceStr#1{%
 	\IfSubStr{#1}{and}{%
@@ -28,6 +35,10 @@ doi=false,
 isbn=false,
 url=false]{biblatex}
 \renewbibmacro{in:}{}
+% Biblatex kalo abis ganti style, 2 kali refresh
+\renewcommand*{\nameyeardelim}{\addcomma\addspace}
+\renewcommand{\parencite}[1]{\textcite{#1}}
+\newcommand{\srcite}[1]{(\cite{#1})}
 
 % Change 'and' to 'dan' https://tex.stackexchange.com/questions/150461/replace-and-with-ampersand-in-bibliography-and-parenthetical-citations-using-b
 \AtBeginBibliography{%
@@ -57,7 +68,10 @@ url=false]{biblatex}
 }
 
 % Change 'et al' to 'dkk'
-\DefineBibliographyStrings{english}{andothers={dkk\adddot}}
+% \DefineBibliographyStrings{english}{andothers={dkk\adddot}}
+
+% If reference not showing, delete all tesis.* files except tesis.tex
+\addbibresource{references.bib}
 
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
@@ -68,50 +82,73 @@ url=false]{biblatex}
 \usepackage{etoolbox}
 \usepackage{hyperref}       % Package untuk link di daftar isi.
 \usepackage{titlesec}       % Package Format judul
-\usepackage{titletoc}
 \usepackage{parskip}
+\usepackage{float}
+\usepackage{hhline}
+\usepackage{tabularx}
+\usepackage{makecell}
+
 
 % Mengatasi bug pada update terbaru titlesec yang menyebabkan section number hilang
 \usepackage{etoolbox}
- \makeatletter
+
+\makeatletter
 \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
 \patchcmd{\ttlh@hang}{\noindent}{}{}{}
 \makeatother
 
-% supaya tidak mengeluarkan warning untuk babel/polyglossia
-\usepackage{csquotes}
 
-% Line satu setengah spasi
-\renewcommand{\baselinestretch}{1.5}
-\usepackage{setspace} % untuk mengatur spacing di bagian-bagian tertentu
 
 % Setting judul
-% \chapterfont{\centering \Large}
-% \titleformat{\chapter}[display]
-%   {\Large\centering\bfseries}
-%   {\chaptertitlename\ \thechapter}{0pt}
-%     {\Large\bfseries\uppercase}
-
 \chapterfont{\centering \Large}
 \titleformat{\chapter}[hang]
   {\Large\centering\bfseries\fontsize{14}{20}\selectfont}
   {\chaptertitlename\ \thechapter\ }{0pt} 
   {}
+  
 \titlespacing*{\chapter}{0pt}{-40pt}{6pt}
+
+% Shortcut double quote
+\newcommand{\q}[1]{``#1''}
+
+% Rumus matematika
+\usepackage{amsmath}
 
 % Setting nomor pada subbsubsubbab
 \setcounter{secnumdepth}{4}
 
 \makeatletter
-\renewcommand\Large{\@setfontsize\Large{15pt}{18}}
+
 \makeatother
 
 % Counter untuk figure dan table.
 \counterwithin{figure}{chapter}
 \counterwithin{table}{chapter}
+\usepackage{caption}
+\captionsetup{format=hang}
 
-% membuat environment italic, khusus untuk abstract
-\newenvironment{italic}{\begin{quote}\itshape}{\end{quote}}
+% Prevent hypenation and zigzagging paragraph
+% https://mechlatex.wordpress.com/2016/03/21/justify-without-hyphenation/
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+% Table
+\usepackage[table,xcdraw]{xcolor}
+
+% Table of figure list
+\usepackage[titles]{tocloft}
+
+\setlength{\cftfignumwidth}{6 em}
+\setlength{\cftfigindent}{0 em}  % remove indentation from figures in lof
+\renewcommand\cftfigpresnum{Gambar }
+
+\setlength{\cfttabnumwidth}{3 em}
+\setlength{\cfttabindent}{0 em}  % remove indentation from figures in lof
+\renewcommand{\cfttabfont}{Tabel }
+
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 
 % https://tex.stackexchange.com/questions/257340/how-to-change-the-space-between-the-section-number-and-section-in-toc
 \addtolength{\cftsecnumwidth}{6pt}

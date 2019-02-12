@@ -20,3 +20,7 @@ output/*
 build/*
 src/build/*
 !src/build/thesis.pdf
+*blx.bib
+*.fdb_latexmk
+*.fls
+*.run.xml

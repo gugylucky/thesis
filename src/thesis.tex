@@ -13,14 +13,15 @@
 \documentclass[12pt, a4paper, onecolumn, oneside, final]{report}
 
 \input{config/if-itb-thesis.sty}
+\input{config/hypenation-id.tex}
 
 \makeatletter
-
 \makeatother
 
 \bibliography{references}
 
 \begin{document}
+\sloppy
 
     %Basic configuration
     \title{Penggunaan Model Transformer Pada \textit{Audiovisual Speech Recognition} Untuk Bahasa Indonesia}
@@ -50,15 +51,30 @@
     \input{chapters/approval}
     \input{chapters/guidelines}
     \input{chapters/forewords}
-	
+    
     \titleformat*{\section}{\centering\bfseries\Large\MakeUpperCase}
     
+    \renewcommand{\cftchapfont}{\normalfont}
+    \renewcommand{\cftchappagefont}{\normalfont}
+    \clearpage
+    \addcontentsline{toc}{chapter}{Daftar Isi}
+    \renewcommand*{\contentsname}{DAFTAR ISI}
+    \renewcommand{\cftchapdotsep}{\cftdotsep}
+    \renewcommand{\cftdot}{.}
+    \titleformat{\section}{\bfseries\sffamily\large}{\thesection.}{\hspace{1cm}}{}%
+ 	\titleformat{\subsection}{\bfseries\sffamily\large}{\thesection.}{\hspace{1cm}}{}%
+ 	\titleformat{\subsubsection}{\bfseries\sffamily\large}{\thesection.}{\hspace{1cm}}{}%
     \tableofcontents
-    \listoffigures
-    \listoftables
     \clearpage
 
-    \titleformat*{\section}{\bfseries\Large}    
+    \addcontentsline{toc}{chapter}{Daftar Gambar}
+    \listoffigures
+    \addcontentsline{toc}{chapter}{Daftar Tabel}
+    \listoftables
+    \clearpage
+    
+    \titleformat*{\section}{\bfseries\normalsize}
+    \titleformat*{\subsection}{\bfseries\normalsize}
     \pagenumbering{arabic}
 
     %----------------------------------------------------------------%
@@ -68,6 +84,18 @@
     %\renewcommand{\chaptername}{BAB}
     \renewcommand{\thechapter}{\Roman{chapter}}
     
+    \titleformat{\section}
+    {\normalfont\fontsize{12}{15}\bfseries}{\thesection}{1em}{}
+    \titlespacing*{\section}{0pt}{6pt}{-6pt}
+    
+    \titleformat{\subsection}
+    {\normalfont\fontsize{12}{15}\bfseries}{\thesubsection}{1em}{}
+    \titlespacing*{\subsection}{0pt}{6pt}{-6pt}
+    
+    \titleformat{\subsubsection}
+    {\normalfont\fontsize{12}{15}\bfseries}{\thesubsubsection}{1em}{}
+    \titlespacing*{\subsubsection}{0pt}{6pt}{-6pt}
+
     \titleformat{\chapter}[hang]
     	{\bfseries \centering \Large}
     	{Bab \thechapter}
@@ -87,14 +115,13 @@
     %----------------------------------------------------------------%
 
     % Daftar pustaka
-    \printbibliography[title=Daftar Pustaka]
+    \printbibliography[heading=bibintoc,title=Daftar Pustaka]
 
     % Index
     \appendix
 
-    \addcontentsline{toc}{part}{Lampiran}
-    \part*{Lampiran}
-
+    % \addcontentsline{toc}{part}{Lampiran}
+    % \part*{Lampiran}
     \input{chapters/appendix-1}
     \input{chapters/appendix-2}
 

@@ -1,36 +1,70 @@
 \chapter{Pendahuluan}
 
-Bab Pendahuluan secara umum yang dijadikan landasan kerja dan arah kerja penulis tugas akhir, berfungsi mengantar pembaca untuk membaca laporan tugas akhir secara keseluruhan.
+Bab Pendahuluan menjelaskan latar belakang penelitian, rumusan masalah, tujuan, batasan, ruang lingkup, dan metodologi yang diterapkan pada penelitian ini.
+
 
 \section{Latar Belakang}
 
-Latar Belakang berisi dasar pemikiran, kebutuhan atau alasan yang menjadi ide dari topik tugas akhir. Tujuan utamanya adalah untuk memberikan informasi secukupnya kepada pembaca agar memahami topik yang akan dibahas.  Saat menuliskan bagian ini, posisikan anda sebagai pembaca – apakah anda tertarik untuk terus membaca?
+\textit{Automatic speech recognition} (ASR) adalah proses pengenalan atau penerjemahan bahasa lisan dalam bentuk sinyal audio menjadi teks secara otomatis oleh komputer. Salah satu permasalahan pada ASR adalah pengenalan menjadi sulit jika dilakukan di lingkungan yang bising, terutama apabila pengenalan dilakukan hanya dengan berbasis audio. Informasi visual berupa pergerakan bibir merupakan informasi yang berpengaruh besar dalam komunikasi manusia, dan juga bisa membantu dalam pemahaman pembicaraan selain dari audio, karena indra penglihatan merupakan indra yang paling utama pada manusia dan pengenalan ucapan merupakan proses yang melibatkan lebih dari satu indera, yaitu indera pendengaran dan indera penglihatan \parencite{Calvert2004}. Akan tetapi, suara dan pergerakan bibir yang tidak konsisten dapat mempengaruhi persepsi pendengar, seperti yang ditunjukkan pada efek McGurk \parencite{McGurk1976}. Informasi visual berupa gerak bibir juga sangat berperan besar dalam interaksi manusia-komputer di lingkungan yang bising \parencite{Garg2016}. Oleh sebab itu, penambahan informasi visual tersebut diharapkan bisa dilakukan untuk meningkatkan akurasi pengenalan suara secara umum. Selain itu, pengenalan gerak bibir ini juga bisa diaplikasikan untuk alat bantu dengar untuk penyandang tuna rungu \parencite{Garg2016}, memberikan instruksi atau pesan kepada komputer di lingkungan yang bising, mentranskripsikan kata-kata yang diucapkan pada film-film bisu atau video tanpa audio, menyelesaikan permasalahan pengenalan suara pada pembicara lebih dari satu, dan juga dapat meningkatkan performa dari \textit{speech recognition} secara umum \parencite{Chung2017}.
+\bigskip
+
+Ada dua jenis pendekatan yang paling banyak dilakukan saat ini dalam melakukan pengenalan ucapan, yaitu pendekatan yang memodelkan kata-kata \parencite{Wand2016} dan pendekatan yang memodelkan \textit{viseme} \parencite{Chung2017}. \textit{Viseme} merupakan satuan terkecil dalam sebuah bahasa yang masih bisa menunjukkan perbedaan kata pada suatu video. Jika fonem merupakan bentuk bunyinya, maka \textit{viseme} setara dengan bentuk visualnya. Dalam riset \textcite{Arifin2013}, berfokus pada pembangunan \textit{viseme} dalam bahasa Indonesia dengan cara melakukan \textit{clustering} menggunakan K-Means pada data berisi gambar \textit{speech} visual. Hasil riset tersebut menunjukkan bahwa dalam bahasa Indonesia terdapat 10 kelas viseme.
+\bigskip
+
+Hingga saat ini, riset mengenai pengenalan gerak bibir untuk bahasa Indonesia masih terbilang sedikit dibandingkan dengan bahasa-bahasa lain, dan untuk bahasa-bahasa lain tersebut pun masih sedikit yang menggunakan \textit{deep learning}. Oleh sebab itu, riset-riset tersebut membutuhkan pra-proses yang cukup banyak untuk mengekstraksi fitur dari gambar frame-frame di video, dan juga pra-proses secara temporal menggunakan \textit{optical flow} atau deteksi gerakan untuk mengekstraksi fitur video, atau menggunakan metode berbasis aturan (\textit{rule-based}) lainnya, seperti yang dijelaskan lebih mendalam pada riset \textcite{Zhou2014}. Untuk yang berbahasa Indonesia terdapat riset \textcite{Achmad2015} yang menggunakan Hidden Markov Model berdimensi satu untuk modul pengenalan polanya, tetapi masih belum tergeneralisasi dengan baik karena hasilnya masih berpengaruh pada kondisi bibir pembicara, yang dalam hal ini pembicara wanita dengan bibir yang menggunakan lipstik memiliki koefisien korelasi yang tinggi sedangkan untuk yang bibir berwarna pucat dan bibir yang memiliki kumis di atasnya memiliki koefisien korelasi yang rendah. Data yang digunakan berjumlah 25 video data yang masing-masing berisi data pembicara yang berbeda dan data tersebut dibuat khusus untuk riset ini. Sejauh ini belum ditemukan dataset umum yang berukuran besar yang seragam dan digunakan untuk lebih dari satu riset, sehingga timbul keperluan untuk membangun dataset dari awal dengan ukuran besar.
+\bigskip
+
+Pengenalan gerak bibir otomatis merupakan permasalahan yang sulit karena membutuhkan ekstraksi fitur spatiotemporal dari video, karena posisi dan gerakannya merupakan informasi yang penting. Dengan adanya perkembangan dalam \textit{deep learning}, pada beberapa tahun terakhir ada beberapa upaya dalam mengaplikasikan \textit{deep learning} ke permasalahan pengenalan gerak bibir \textit{lipreading}) ini, seperti oleh \textcite{Noda2014} yang mempelajari fitur visual dengan menggunakan \textit{convolutional neural network} yang kemudian digunakan GMM-HMM untuk mengklasifikasikan fonem.
+\bigskip
+Diinspirasi dari perkembangan terkini pada permasalahan terjemahan mesin dalam memodelkan \textit{sequence-to-sequence} menggunakan model \textit{encoder-decoder} yang dilengkapi dengan mekanisme \textit{attention} \parencite{Bahdanau2015}, model \textit{encoder-decoder} ini kemudian sudah diaplikasikan ke berbagai macam permasalahan lain seperti \textit{speech recognition} \parencite{Chan2015}, \textit{automatic image captioning} \parencite{Vinyals2014} \parencite{Xu2015}, dan pengenalan gerak bibir \parencite{Chung2017}. Model ini mengambil masukan berupa rangkaian S dengan panjang m yang kemudian dipetakan menjadi rangkaian T dengan panjang n. Rangkaian T dihasilkan dari \textit{hidden state} ht yang merupakan fungsi dengan masukan ht-1 dan rangkaian S untuk \textit{time-step} ke t. Karena sifatnya yang sekuensial, membuat paralelisasi pada saat proses pelatihan model menjadi tidak bisa dilakukan, sehingga prosesnya menjadi sangat lama terutama pada data latih yang memiliki rangkaian yang sangat panjang, juga dikarenakan terbatasnya ukuran memori jika dilakukan proses pelatihan dengan mode batch.
+\bigskip
+
+Mekanisme \textit{attention} sudah diaplikasikan pada berbagai permasalahan yang menggunakan model \textit{encoder-decoder}, dan telah menjadi bagian penting dalam pemodelan rangkaian dan model transduksi. Mekanisme \textit{attention} ini memungkinkan model untuk memodelkan dependensi tanpa harus melihat jarak antara masukan dan keluaran. Akan tetapi, kebanyakan pengaplikasian mekanisme \textit{attention} ini hanya sebatas digunakan sebagai pelengkap untuk jaringan saraf rekuren. Oleh sebab itu \textcite{Vaswani2017} mengusulkan model yang dinamakan transformer, sebuah arsitektur model yang menghindari penggunaan rekurens dan bergantung secara penuh pada mekanisme \textit{attention} untuk menggambarkan dependensi global antara masukan dan keluaran. Selain itu model transformer ini memungkinkan dilakukannya paralelisasi sehingga dapat mempercepat proses pelatihan model.
+\bigskip
+
+Hal tersebut menjadi latar belakang dari tesis ini. Secara umum, tesis ini akan mencoba untuk mengaplikasikan model transformer pada permasalahan pengenalan gerak bibir untuk meningkatkan performa \textit{speech recognition} dalam bahasa Indonesia. Selain pengaplikasian model, tesis ini juga berfokus pada pengumpulan data untuk pengenalan ucapan yang dilengkapi dengan gerak bibir dalam bahasa Indonesia.
+
+
+\section{Rumusan Masalah}
+
+Riset mengenai pengenalan ucapan otomatis pada bahasa Indonesia sudah banyak dilakukan, akan tetapi kebanyakan masih memerlukan praproses untuk mereduksi \textit{noise}. Riset mengenai pengenalan gerak bibir pada bahasa Indonesia juga sudah dilakukan meski masih memiliki akurasi pengenalan yang belum baik jika dibandingkan dengan bahasa yang sudah banyak diriset, seperti bahasa Inggris. Hal ini disebabkan oleh keterbatasan sumber daya dan penggunaan teknik pengenalan yang kurang optimum. Selain itu riset mengenai penggabungan fitur akustik dan fitur visual berupa gerak bibir dalam mengenali ucapan pada bahasa Indonesia belum ada yang melakukan. Oleh karena itu, pada tesis ini diusulkan solusi berupa pembangunan sistem pengenalan ucapan dengan menggabungkan fitur akustik dan fitur visual berupa gereak bibir dengan menggunakan pendekatan \textit{deep learning} seperti model \textit{sequence-to-sequence} dan berbagai macam variannya. Penggunaan pendekatan yang lebih baik dan penambahan fitur visual ini diharapkan memberikan hasil pengenalan yang lebih baik dan meningkatkan akurasi pengenalan.
+
 
 \section{Tujuan}
 
-Rumusan Masalah berisi masalah utama yang dibahas dalam tugas akhir. Rumusan masalah yang baik memiliki struktur sebagai berikut:
+Tujuan utama dari tesis ini dirincikan sebagai berikut,
 
 \begin{enumerate}
-    \item Penjelasan ringkas tentang kondisi/situasi yang ada sekarang terkait dengan topik utama yang dibahas Tugas Akhir.
-    \item Pokok persoalan dari kondisi/situasi yang ada, dapat dilihat dari kelemahan atau kekurangannya. Bagian ini merupakan inti dari rumusan masalah.
-    \item Elaborasi lebih lanjut yang menekankan pentingnya untuk menyelesaikan pokok persoalan tersebut.
-    \item Usulan singkat terkait dengan solusi yang ditawarkan untuk menyelesaikan persoalan.
+    \item Membangun sistem pengenalan suara dengan menggunakan fitur akustik dan fitur visual berupa pengenalan gerak bibir pada kalimat bahasa Indonesia dengan menggunakan model transformer. Selain itu juga membangun sistem pengenalan suara yang sama tapi hanya menggunakan fitur akustik yang selanjutnya digunakan sebagai model \textit{baseline}.
+    \item Melakukan perbandingan kinerja sistem pengenalan suara yang menggunakan fitur akustik dan fitur visual dengan model \textit{baseline} yang hanya menggunakan fitur akustik saja.
+    \item Mengumpulkan atau mengumpulkan data pengenalan ucapan yang dilengkapi dengan gerak bibir dalam bahasa Indonesia baku.
 \end{enumerate}
 
-Penting untuk diperhatikan bahwa persoalan yang dideskripsikan pada subbab ini akan dipertanggungjawabkan di bab Evaluasi apakah terselesaikan atau tidak.
-
-\section{Tujuan}
-
-Tuliskan tujuan utama dan/atau tujuan detil yang akan dicapai dalam pelaksanaan tugas akhir. Fokuskan pada hasil akhir yang ingin diperoleh setelah tugas akhir diselesaikan, terkait dengan penyelesaian persoalan pada rumusan masalah. Penting untuk diperhatikan bahwa tujuan yang dideskripsikan pada subbab ini akan dipertanggungjawabkan di akhir pelaksanaan tugas akhir apakah tercapai atau tidak.
 
 \section{Batasan Masalah}
 
-Tuliskan batasan-batasan yang diambil dalam pelaksanaan tugas akhir. Batasan ini dapat dihindari (tidak perlu ada) jika topik/judul tugas akhir dibuat cukup spesifik.
+Penelitian ini hanya berfokus pada pengenalan gerakan bibir pada kalimat-kalimat bahasa Indonesia baku.
+
 
 \section{Metodologi}
 
-Tuliskan semua tahapan yang akan dilalui selama pelaksanaan tugas akhir. Tahapan ini spesifik untuk menyelesaikan persoalan tugas akhir. Tahapan studi literatur tidak perlu dituliskan karena ini adalah pekerjaan yang harus Anda lakukan selama proses pelaksanaan tugas akhir.
+Metodologi yang diterapkan pada pengerjaan penelitian ini adalah:
+\begin{enumerate}
+    \item Analisis permasalahan. Pada tahap ini akan dilakukan analisis berdasarkan studi literatur untuk menentukan masalah-masalah pada penggunaan model transformer dan juga mengidentifikasi permasalahan-permasalahan yang terdapat pada \textit{speech recognition}.
+    \item Perancangan solusi. Pada tahap ini akan dilakukan penentuan arsitektur yang tepat dan model-model yang akan dijadikan \textit{baseline} untuk memetakan rangkaian frame video menjadi rangkaian kata.
+    \item Pengumpulan dataset untuk pelatihan model, dalam bentuk video yang berisi gambar dan suara orang yang mengucapkan kalimat dalam bahasa Indonesia baku.
+    \item Pembangunan model textit{baseline} dan gabungan model pengenalan ucapan berbasis akustik dan model pengenalan ucapan berbasis visual berupa gerak bibir, lalu melakukan pelatihan model serta perbandingan antara model tersebut.
+    \item Tahapan akhir dari penelitian ini adalah melakukan analisis hasil dan membuat kesimpulan dari hasil eksperimen.
+\end{enumerate} 
+
 
 \section{Sistematika Pembahasan}
 
-Subbab ini berisi penjelasan ringkas isi per bab. Penjelasan ditulis satu paragraf per bab buku.
+Laporan tesis ini disusun berdasarkan sistematika berikut:
+\begin{itemize}[label={}]
+    \item \textbf{Bab I Pendahuluan} berisi latar belakang, rumusan masalah, tujuan, dan batasan yang diterapkan pada penelitian, serta metodologi pengerjaan dan sistematika pembahasan penelitian yang disajikan dalam laporan tesis ini.
+    \item \textbf{Bab II Tinjauan Pustaka} berisi penjelasan mengenai konsep dan dasar teori dari pengenalan ucapan, baik berbasis akustik maupun berbasis visual, Diberikan juga penjelasan mengenai arsitektur jaringan saraf tiruan yang digunakan, yang termasuk di dalamnya yaitu model \textit{sequence-to-sequence} dan transformer.
+    \item \textbf{Bab III Analisis Masalah dan Rancangan Solusi} memberikan analisis awal terhadap kondisi data, gambaran umum skema eksperimen, dan pertimbangan solusi dalam mengatasi masalah yang diangkat dalam penelitian.
+    \item \textbf{Bab IV Eksperimen dan Evaluasi} menjelaskan skema dan konfigurasi pemodelan, jenis data yang digunakan serta hasil eksperimen pemodelan pada penelitian ini. Evaluasi berdasarkan hasil eksperimen yang dilakukan juga tercantum di dalam bab ini.
+    \item \textbf{Bab V Penutup} berisi simpulan yang mengandung ulasan ringkas ketercapaian tujuan penelitian berdasarkan eksperimen dan evaluasi yang dilakukan, dan saran pengembangan lebih lanjut dari penelitian ini.
+\end{itemize}
