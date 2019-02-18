@@ -57,7 +57,7 @@ title = {{Listen, Attend and Spell}},
 url = {http://arxiv.org/abs/1508.01211},
 year = {2015}
 }
-@article{Cho2014,
+@article{Cho2014a,
 abstract = {Neural machine translation is a relatively new approach to statistical machine translation based purely on neural networks. The neural machine translation models often consist of an encoder and a decoder. The encoder extracts a fixed-length representation from a variable-length input sentence, and the decoder generates a correct translation from this representation. In this paper, we focus on analyzing the properties of the neural machine translation using two models; RNN Encoder--Decoder and a newly proposed gated recursive convolutional neural network. We show that the neural machine translation performs relatively well on short sentences without unknown words, but its performance degrades rapidly as the length of the sentence and the number of unknown words increase. Furthermore, we find that the proposed gated recursive convolutional network learns a grammatical structure of a sentence automatically.},
 archivePrefix = {arXiv},
 arxivId = {1409.1259},
@@ -68,7 +68,7 @@ title = {{On the Properties of Neural Machine Translation: Encoder-Decoder Appro
 url = {http://arxiv.org/abs/1409.1259},
 year = {2014}
 }
-@article{Cho2014,
+@article{Cho2014b,
 abstract = {In this paper, we propose a novel neural network model called RNN Encoder-Decoder that consists of two recurrent neural networks (RNN). One RNN encodes a sequence of symbols into a fixed-length vector representation, and the other decodes the representation into another sequence of symbols. The encoder and decoder of the proposed model are jointly trained to maximize the conditional probability of a target sequence given a source sequence. The performance of a statistical machine translation system is empirically found to improve by using the conditional probabilities of phrase pairs computed by the RNN Encoder-Decoder as an additional feature in the existing log-linear model. Qualitatively, we show that the proposed model learns a semantically and syntactically meaningful representation of linguistic phrases.},
 archivePrefix = {arXiv},
 arxivId = {1406.1078},
@@ -244,6 +244,16 @@ number = {2},
 title = {{Automatic Speech Recognition: A Deep Learning Approach}},
 volume = {9},
 year = {2014}
+}
+@phdthesis{Yuwan2018,
+abstract = {Kelemahan Gaussian Mixture Model (GMM) dalam memodelkan data ucapan spontan mengarahkan penggunaan Deep Neural Network (DNN) sebagai alternatif pendekatan model akustik. DNN memerlukan data latih dalam jumlah besar untuk mempelajari parameter model. Banyaknya data latih tidak menjamin seluruh data mengandung informasi yang tepat dalam menghasilkan model akustik yang baik. Pemeriksaan kandungan informasi data latih dapat dilakukan dengan menerapkan skema pemilihan data active learning. Penelitian ini bertujuan untuk membangun model akustik berbasis DNN pada sistem pengenal ucapan spontan Bahasa Indonesia. Peningkatan kinerja sistem, yang diukur berdasarkan Word Error Rate (WER), menggunakan model DNN- HMM dibandingkan dengan model tolak ukur GMM-HMM. Eksperimen awal untuk menilai kontribusi data menggunakan active learning terhadap masing- masing model juga dilakukan. Data latih penelitian ini menggunakan data dari penelitian sebelumnya. Pengujian model akustik dilakukan pada skema tertutup dan terbuka terhadap model bahasa. Terdapat 35,17 jam data suara yang mengandung 14.572 ucapan dari 239 pembicara sebagai data latih. Sementara itu, data uji dipilih secara acak sebanyak 1.989 ucapan dengan total durasi 3,6 jam yang dibacakan oleh 10{\%} dari total pembicara pada data latih. Penurunan WER dari ASR berbasis GMM-HMM ke ASR berbasis DNN-HMM terjadi sebesar 2,53{\%} dan 3,89{\%} berturut-turut pada skema tertutup dan terbuka terhadap model bahasa. Pemeriksaan data dengan active learning pada model GMM-HMM menunjukkan bahwa penggunaan sekitar 54{\%} data latih mampu memberikan akurasi pengenalan yang seimbang dibanding penggunaan seluruh data. Sementara itu, penambahan data latih untuk model DNN yang bersifat lebih robust terhadap noisy data menunjukkan peningkatan kinerja ASR.},
+author = {Yuwan, Rahmi},
+keywords = {DNN-HMM,GMM-HMM,active learning,pretrain DNN},
+pages = {51},
+school = {Institut Teknologi Bandung},
+title = {{Pemodelan Akustik Berbasis Deep Neural Network Pada Sistem Pengenal Ucapan Spontan Bahasa Indonesia Memanfaatkan Active Learning}},
+volume = {23516027},
+year = {2018}
 }
 @article{Zhou2014,
 abstract = {Visual speech information plays an important role in automatic speech recognition (ASR) especially when audio is corrupted or even inaccessible. Despite the success of audio-based ASR, the problem of visual speech decoding remains widely open. This paper provides a detailed review of recent advances in this research area. In comparison with the previous survey [97] which covers the whole ASR system that uses visual speech information, we focus on the important questions asked by researchers and summarize the recent studies that attempt to answer them. In particular, there are three questions related to the extraction of visual features, concerning speaker dependency, pose variation and temporal information, respectively. Another question is about audio-visual speech fusion, considering the dynamic changes of modality reliabilities encountered in practice. In addition, the stateof-the-art on facial landmark localization is briefly introduced in this paper. Those advanced techniques can be used to improve the region-of-interest detection, but have been largely ignored when building a visual-based ASR system. We also provide details of audio-visual speech databases. Finally, we discuss the remaining challenges and offer our insights into the future research on visual speech decoding.},

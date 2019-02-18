@@ -2,24 +2,257 @@
 
 \section{Sistem Pengenalan Ucapan Otomatis}
 
+Sistem pengenalan ucapan otomatis atau disebut juga \textit{automatic speech recognition} (ASR) adalah proses pengenalan atau penerjemahan bahasa lisan dalam bentuk sinyal audio menjadi teks secara otomatis oleh komputer. Pada umumnya, arsitektur dari sebuah system ASR bisa dibagi menjadi empat buah komponen utama, yaitu pemrosesan sinyal dan ekstraksi fitur, model akustik atau acoustic model (AM), model bahasa atau language model (LM), dan pencarian hipotesis \parencite{Yu2014}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resources/images/arsitektur-umum-asr.png}
+    \caption{Arsitektur umum dari sistem ASR \parencite{Yu2014}}
+\end{figure}
+
+
 \subsection{Pemrosesan Sinyal dan Ekstraksi Fitur}
+
+Komponen pemrosesan sinyal dan ekstraksi fitur mengambil masukan berupa sinyal audio mentah dan diproses agar \textit{noise}-nya dihilangkan, mengubah sinyal dari domain waktu ke domain frekuensi, dan mengekstraksi fitur-fitur yang paling penting dari sinyal tersebut sehingga cocok dengan komponen model akustik.
 
 \subsection{Model Akustik}
 
+Komponen model akustik tersebut mengintegrasikan pengetahuan mengenai akustik dan fonetik, dan dengan menggunakan fitur yang diekstraksi di komponen sebelumnya lalu menghasilkan skor AM untuk fitur tersebut.
+\bigskip
+
+Riset \textcite{Han2018} menunjukkan bahwa model akustik dengan \textit{word error rate} (WER) terbaik untuk korpus bahasa Inggris yaitu sebesar 5.0\% pada dataset Switchboard dan 9.1\% pada dataset CallHome, didapatkan dengan menggunakan dense TDNN-LSTM. Fitur yang digunakan adalah MFCC dengan dimensi sebesar 39, sama seperti yang dilakukan oleh \textcite{Xiong2017} akan tetapi model akustik yang digunakan adalah CNN-BLSTM.
+\bigskip
+
+Selain itu, terdapat riset lain yang menggunakan pendekatan \textit{sequence-to-sequence}, seperti \textcite{Chan2015} yang menggunakan \textit{Bidirectional} LSTM (BLSTM) dengan struktur piramid untuk mendapatkan representasi tingkat tinggi dari sinyal audio. Struktur piramid digunakan untuk mengurangi \textit{time-step} yang dibutuhkan untuk mendapatkan representasi dari keseluruhan sinyal audio, yang bisa mencapai ribuan pada sistem ASR. BLSTM struktur piramid tersebut pada pendekatan \textit{sequence-to-sequence} disebut sebagai \textit{encoder}, menghasilkan context vectors yang kemudian digunakan pada \textit{decoder} untuk menghasilkan rangkaian kata-kata sebagai hasil pengenalan. Model ini berhasil mencapai WER 14.1\% tanpa menggunakan kamus dan model bahasa, dan berhasil mencapai WER 10.3\% jika menggunakan model bahasa. Riset lain yang menggunakan pendekatan \textit{sequence-to-sequence} pada data bahasa Inggris adalah riset \textcite{Chung2017}, yang sama seperti riset sebelumnya hanya saja pada \textit{decoder}-nya tidak menerima masukan berupa sinyal audio mentah, tetapi sudah diekstraksi fitur terlebih dahulu menjadi fitur MFCC berdimensi 13 dengan urutan waktu terbalik. Model ini berhasil mencapai WER 17.7\% pada dataset LRS.
+\bigskip
+
+Riset mengenai ASR pada bahasa Indonesia salah satunya adalah oleh \textcite{Yuwan2018}, yang menggunakan model DNN-HMM dan dibandingkan dengan model tolak ukur GMM-HMM. Pengujian model dilakukan pada skema tertutup dan terbuka, dan berhasil mencapai penurunan WER dari ASR berbasis GMM-HMM ke ASR berbasis DNN-HMM sebesar 2,53\% pada skema tertutup dan 3,89\% pada skema terbuka.
+
+
 \subsection{Model Bahasa}
+
+Komponen model bahasa mengestimasi probabilitas dari rangkaian kata-kata hipotesis dengan cara mempelajari korelasi antar kata-kata tersebut berdasarkan korpus data latih. Estimasi probabilitas tersebut disebut sebagai skor LM.
+
 
 \subsection{Pencarian Hipotesis}
 
+Dengan menggunakan skor AM dan LM yang didapatkan dari vektor fitur dan kata-kata kandidat yang mungkin, komponen pencarian hipotesis akan menghasilkan keluaran berupa rangkaian kata-kata dengan skor AM dan LM tertinggi sebagai hasil pengenalan. 
+
+
 \section{Pemodelan \textit{Sequence}}
+
+Pemodelan \textit{sequence} dengan \textit{deep learning} berkembang dengan pesat, terutama menggunakan \textit{recurrent neural network} (RNN), yang telah menunjukkan hasil yang baik pada banyak permasalahan pembelajaran mesin, khususnya untuk permasalahan yang memiliki masukan dan/atau keluaran yang memiliki panjang yang bervariasi. Riset \textcite{Sutskever2014} dan \textcite{Bahdanau2015} menunjukkan bahwa RNN dapat melakukan pemodelan \textit{sequence} dengan baik sama seperti sistem-sistem yang sudah ada untuk permasalahan sulit seperti mesin translasi.
+\bigskip
+
+RNN merupakan perluasan dari jaringan saraf tiruan \textit{feedforward} konvensional yang dapat menangani masukan dengan panjang bervariasi. RNN menanganinya dengan menggunakan \textit{recurrent hidden} state yang pengaktifannya bergantung pada \textit{hidden state} pada waktu yang sebelumnya. Secara formal, RNN memperbarui \textit{recurrent hidden state} ht-nya sebagai berikut \parencite{Chung2014}:
+
+\[ h_{t} =
+  \begin{cases}
+    0                           & \quad t=0 \\
+    \varphi(h_{t-1} - x_{t})    & \quad otherwise
+  \end{cases}
+\]
+
+yang pada hal ini \(x\) adalah rangkaian \(x=(x_{1},x_{2}\dots,x_{T})\) dan \(\varphi\) merupakan fungsi non-linier seperti fungsi \textit{logistic sigmoid}. RNN juga bisa memiliki keluaran \(y=(y_{1},y_{2}\dots,y_{T})\) yang juga memiliki panjang yang bervariasi.
+\bigskip
+
+Bobot atau parameter yang terdapat pada RNN secara tradisional diperbarui sebagai berikut \parencite{Chung2014}:
+\[
+    h_{t} = g(Wx_{t}+Uh_{t-1})
+\]
+yang dalam hal ini \(g\) merupakan fungsi seperti \textit{logistic sigmoid} atau \textit{hyperbolic tangent}.
+\bigskip
+
+Akan tetapi, pelatihan RNN sulit dilakukan untuk menangkap dependensi yang jaraknya jauh karena nilai gradien pada RNN cenderung menghilang atau meningkat drastis. Hal ini membuat optimasi berbasis gradien menjadi sulit untuk dilakukan. Pendekatan yang bisa dilakukan untuk menangani masalah ini bisa dengan melakukan optimasi yang lain yang tidak berbasis gradien, seperti menggunakan \textit{stocahstic gradient desecent}. Pendekatan lainnya yang bisa dilakukan adalah menggunakan arsitektur RNN yang lain yang menggunakan fungsi aktivasi yang lebih mutakhir, seperti \textit{long short-term memory} (LSTM) \parencite{Hochreiter1997} dan \textit{gated recurrent unit} (GRU) \parencite{Cho2014a}.
+\bigskip
+
+Pemodelan \textit{sequence} yang paling banyak digunakan pada riset-riset terakhir ini adalah menggunakan model \textit{sequence-to-sequence} yang memetakan sebuah rangkaian masukan dengan panjang \(n\) menjadi rangkaian keluaran dengan panjang \(m\), dipopulerkan dalam penggunaanya untuk permasalahan terjemahan mesin.
+\bigskip
+
+Terdapat dua pendekatan umum untuk model \textit{sequence-to-sequence}, yaitu model \textit{encoder-decoder} berbasis rekurens dan model \textit{encoder-decoder} berbasis \textit{attention}.
+
 
 \subsection{Model \textit{Encoder-Decoder} berbasis rekurens}
 
+Model dasar \textit{sequence-to-sequence} diperkenalkan oleh \textcite{Cho2014b}, yang terdiri dari dua buah \textit{recurrent neural network} (RNN), yaitu \textit{encoder} yang bertugas untuk merepresentasikan rangkaian masukan menjadi sebuah \textit{fixed-length vector}, dan \textit{decoder} yang bertugas untuk menghasilkan rangkaian keluaran berdasarkan vektor yang didapatkan dari encoder tadi.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resources/images/arsitektur-encoder-decoder.png}
+    \caption{Ilustrasi dari arsitektur \textit{encoder-decoder} \parencite{Cho2014b}}
+\end{figure}
+
+Selain itu ada riset dari \textcite{Sutskever2014} yang sama menggunakan arsitektur \textit{encoder-decoder} akan tetapi berbeda dengan arsitektur sebelumnya yang hanya mengintegrasikan jaringan saraf tiruannya ke dalam sistem \textit{statistical machine translation} (SMT), model ini merupakan model yang sepenuhnya menggunakan RNN dan proses pelatihannya dilakukan secara \textit{end-to-end}. Hanya saja model \textit{encoder-decoder} ini harus dapat memampatkan informasi dari satu kalimat utuh menjadi sebuah \textit{fixed-length vector}. Hal ini bisa jadi menyulitkan RNN untuk merepresentasikan kalimat yang panjang, terutama jika panjangnya lebih panjang dari yang terdapat pada data latih di corpus. \textcite{Cho2014a} menunjukkan bahwa memang performa dari model \textit{encoder-decoder}-nya semakin memburuk seiring dengan semakin meningkatnya panjang dari kalimat masukan.
+\bigskip
+
+Untuk menangani masalah tersebut, \textcite{Bahdanau2015} mengaplikasikan mekanisme \textit{attention} pada \textit{decoder}. Dengan mekanisme \textit{attention} ini \textit{decoder} dapat menentukan bagian mana dari kalimat masukan yang harus mendapatkan perhatian lebih untuk selanjutnya menjadi masukan pada fungsi aktivasi pada \textit{decoder} untuk menentukan keluaran apa yang akan dihasilkan. Dengan membiarkan \textit{decoder} menentukan masukan mana yang penting untuk menghasilkan keluaran selanjutnya, \textit{decoder} menjadi tidak perlu untuk merepresentasikan semua informasi yang ada dalam sebuah kalimat ke dalam sebuah vektor. Dengan ini informasi pada sebuah kalimat bisa direpresentasikan secara tersebar ke seluruh rangkaian kata-kata pada kalimat, yang selanjutnya bisa dipilih oleh \textit{decoder} dengan mekanisme \textit{attention}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resources/images/mekanisme-attention.png}
+    \caption{Ilurstrasi mekanisme attention \parencite{Bahdanau2015}}
+    \label{fig:attention}
+\end{figure}
+
+Seperti yang bisa dilihat pada gambar ~\ref{fig:attention}, tingkat kepentingan dari masukan dipilih oleh mekanisme \textit{attention} berdasarkan nilai dari bobot \(\alpha_{i,j}\) dari setiap masukan \(h_{j}\), yang dihitung dengan fungsi \textit{softmax} \parencite{Bahdanau2015}:
+
+\[
+    \alpha_{ij} = \frac{exp(e_{ij})}{\displaystyle\sum_{k=1}^{T_{}x} exp(e_{ik})}
+\]
+
+yang dalam hal ini,
+
+\[
+    e_{ij} = a(s_{i-1}, h_{j})
+\]
+
+yang merupakan model \textit{alignment} yang menilai kecocokan antara masukan pada sekitaran posisi \(j\) dan keluaran pada posisi \(i\). Parameter pada model \textit{alignment}  dilatih sebagai \textit{feedforward neural network} yang kemudian dilatih secara bersama-sama dengan komponen-komponen lain pada sistem yang diusulkan.
+
+
 \subsection{Model \textit{Encoder-Decoder} berbasis \textit{attention}}
+
+Mekanisme \textit{attention} sudah diaplikasikan pada berbagai permasalahan selain permasalahan mesin translasi dan menjadi bagian penting dalam pemodelan rangkaian dan model transduksi, sehingga memungkinkan model untuk memodelkan dependensi tanpa harus melihat jarak antara masukan dan keluaran. Akan tetapi, kebanyakan pengaplikasian mekanisme \textit{attention} ini hanya sebatas digunakan sebagai pelengkap untuk jaringan saraf rekuren. Oleh sebab itu \textcite{Vaswani2017} mengusulkan model yang disebut sebagai model transformer, sebuah arsitektur model yang menghindari penggunaan rekurens dan bergantung sepenuhnya pada mekanisme \textit{attention} untuk menggambarkan dependensi global antara masukan dan keluaran. Selain itu model transformer ini memungkinkan dilakukannya paralelisasi sehingga dapat mempercepat proses pelatihan model, dan juga berhasil mengungguli model \textit{encoder-decoder} berbasis rekurens.
+\bigskip
+
+Arsitektur dari model transformer secara keseluruhan mengikuti model \textit{encoder-decoder}, hanya saja komponen penyusunnya tidak menggunakan RNN tapi menggunakan \textit{stacked self-attention}, dan \textit{point-wise fully connected layer}. Selain itu untuk model transfromer juga tidak menggunakan RNN untuk meng-\textit{encode} rangkaian, tetapi menggunakan layer \textit{positional encodings} yang kemudian diikuti oleh fungsi \textit{attention}.
+\bigskip
+
+Fungsi \textit{attention} bisa dideskripsikan sebagai pemetaan \textit{query} dan sekumpulan pasangan \textit{key-value} menjadi sebuah keluaran, yang pada hal ini \textit{query}, pasangan \textit{key-value}, dan keluaran semuanya berbentuk vektor. Keluaran tersebut dihitung sebagai jumlah tertimbang. Jenis fungsi \textit{attention} yang digunakan pada riset ini disebut sebagai \textit{Scaled Dot-Product Attention}, yang kemudian fungsi \textit{attention} tersebut bisa dihitung secara paralel, yang kemudian disebut sebagai \textit{Multi-Head Attention}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resources/images/2-jenis-attention.png}
+    \caption{Ilustrasi \textit{scaled dot-product attention} dan \textit{multi-head attention}. \parencite{Vaswani2017}}
+    \label{fig:jenis-attention}
+\end{figure}
+
+\textit{Scaled dot-product attention}, mengambil input berupa beberapa \textit{query} (Q) dan \textit{key} (K) yang berdimensi \(d_{k}\), dan \textit{value} (V) yang berdimensi \(d_{v}\), dan dapat diformulasikan sebagai berikut:
+
+\[
+    Attention(Q,K,V) = \frac{QK^{T}}{\sqrt{d_{k}}}V    
+\]
+
+Pada dasarnya \textit{scaled dot-product attention} sama seperti \textit{dot-product attention}, perbedaannya terletak pada penambahan faktor penskala \(\frac{1}{d_{k}}\) pada perhitungannya. faktor penskala tersebut digunakan untuk menangani masalah ketika nilai  \(d_{k}\) terlalu besar sehingga hasil \textit{dot-product}nya tumbuh secara besar, sehingga hasil dari fungsi softmaxnya memiliki gradien yang sangat kecil dan selanjutnya menimbulkan masalah ketika melakukan propagasi balik.
+\bigskip
+
+\textit{Multi-head attention} merupakan pengembangan dari \textit{scaled dot-product attention}. Menurut \textcite{Vaswani2017}, daripada menghitung satu kali \textit{attention} dari \textit{query}, \textit{key}, dan \textit{value} yang sebanyak \(d_{model}\), akan lebih baik jika \textit{query}, \textit{key}, dan \textit{value}nya diproyeksikan secara linier terlebih dahulu sebanyak \(h\) kali, dengan proyeksi liner ke dimensi \(d_{q}\), \(d_{k}\), \(d_{v}\) dan  yang berbeda-beda dan dipelajari dari data. Masing-masing \textit{query}, \textit{key}, dan \textit{value} yang sudah diproyeksikan tersebut kemudian dihitung \textit{attention}nya secara paralel, dan menghasilkan output berdimensi \(d_{v}\) yang kemudian dikonkatenasi dan diproyeksikan lagi, yang merupakan hasil akhir dari perhitungan \textit{multi-head attention}. \textit{Multi-head attention} dapat diformulasikan sebagai berikut:
+
+\begin{equation*}
+    \begin{split}
+        MultiHead(Q,K,V) = Concat(head_{1},\dots,head_{h})W^{O} \\
+        head_{i} = Attention(QW^{Q}_{i},KW^{K}_{i},VW^{V}_{i})
+    \end{split}
+\end{equation*}
+
+yang dalam hal ini \(QW^{Q}_{i}\), \(KW^{K}_{i}\), dan \(VW^{V}_{i}\) merupakan matrix parameter untuk proyeksi, yang dipelajari dari data.
+\bigskip
+
+Jenis \textit{attention} ini memungkinkan model untuk mempelajari informasi mana yang paling perlu diperhatikan dari berbagai representasi pada ruang pencarian dengan posisi yang berbeda-beda.
+
+Selain menggunakan fungsi \textit{attention}, setiap layer pada \textit{encoder} dan \textit{decoder} berisi \textit{fully connected feedforward network}, yang terdiri dari dua transformasi linier dengan fungsi aktivasi ReLU diantaranya. Di layer masukan terdapat layer \textit{embedding} dan di layer keluaran digunakan layer softmax. Karena modelnya tidak mempunyai komponen rekurens atau konvolusi, supaya modelnya mampu mempelajari urutan dari rangkaiannya, maka modelnya harus dimasukkan informasi tambahan mengenai posisi relatif dan posisi absolut dari token di dalam sebuah kalimat. Untuk itu digunakan \textit{positional embedding} setelah melalui \textit{embedding} di layer masukan tadi.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resources/images/arsitektur-transformer.png}
+    \caption{Arsitektur model Transformer \parencite{Vaswani2017}}
+    \label{fig:transformer}
+\end{figure}
+
 
 \section{Pemodelan Gambar dan Video}
 
+Riset yang paling banyak mengenai pemodelan gambar dan video adalah mengenai pembangkitan keterangan otomatis (\textit{automatic caption generation}). Pembangkitan keterangan otomatis merupakan permasalahan mendasar pada kecerdasan buatan yang menggabungkan \textit{computer vision} dan pemrosesan bahasa alami. Riset mengenai pembangkitan keterangan otomatis akhir-akhir ini bisa dikategorisasikan menjadi dua, yaitu pembangkitan keterangan otomatis dari citra dan pembangkitan keterangan otomatis dari video. Jika proses pembangkitan dilakukan dari citra maka informasi penting yang harus diperhatikan hanya informasi posisi saja sedangkan jika dilakukan dari video maka selain itu harus juga diperhatikan informasi temporal antar frame videonya. Permasalahan utamanya adalah sebuah deskripsi dihasilkan harus bisa menangkap semua objek yang terdapat di dalam citra tersebut, dan juga harus bisa mengekspresikan keterkaitan antara objek dan juga atribut-atribut apa saja yang menjelaskan objek tersebut dan aktivitas apa yang melibatkan objek tersebut. Terlebih lagi, deskripsi tersebut harus dideskripsikan dengan menggunakan bahasa yang sealami mungkin.
+
+
 \subsection{Pembangkitan Keterangan Otomatis dari Citra}
+
+Riset \textcite{Vinyals2014} mengemukakan sebuah model yang diinspirasi oleh kemajuan-kemajuan terbaru pada permasalahan mesin translasi yang menggunakan model \textit{encoder-decoder} berbasis RNN. Perbedaannya pada riset ini adalah sebagai ganti dari RNN, modelnya menggunakan \textit{convolutional neural network} (CNN) sebagai encoder. Dalam beberapa tahun terakhir penggunaan CNN telah menunjukkan hasil yang baik dalam merepresentasikan sebuah citra menjadi sebuah \textit{fixed-length vector}, sehingga selanjutnya bisa digunakan sebagai masukan dari \textit{decoder} RNN untuk menghasilkan keluaran berupa kalimat deskripsi.
+/bigskip
+
+CNN merupakan bagian dari \textit{deep feedforward artificial neural networks} yang pada umumnya digunakan untuk menganalisis citra. CNN merupakan variasi dari \textit{multilayer perceptron} dan didesain supaya memerlukan praproses seminimal mungkin. CNN terdiri dari banyak lapisan tersembunyi yang melakukan konvolusi dan \textit{pooling} terhadap masukan yang pada umumnya berbentuk citra. Lapisan-lapisan konvolusi dan \textit{pooling} ini memiliki nilai-nilai parameter yang dipelajari dari data sehingga Lapisan-lapisan tersebut secara otomatis menyesuaikan untuk bisa mengekstraksi informasi yang paling penting. Pada CNN, lapisan tersembunyinya biasanya terdiri atas lapisan konvolusi, lapisan \textit{pooling}, \textit{fully connected layers} dan lapisan normalisasi. 
+\bigskip
+
+Lapisan konvolusi menggunakan operasi konvolusi kepada masukan, dan meneruskan hasilnya ke lapisan selanjutnya. Setiap lapisan konvolusi memproses data hanya pada \textit{receptive field}nya. \textit{Receptive field} adalah sebagian area dari keseluruhan data yang akan diproses. Area tersebut biasanya berbentuk persegi. \textit{Receptive field} digunakan untuk mengurangi jumlah parameter jika dibandingkan dengan menggunakan \textit{fully connected layer}, karena ukuran dari sebuah citra yang biasanya berukuran besar, dan setiap pixelnya merupakan input yang relevan.
+\bigskip
+
+Lapisan \textit{pooling} pada CNN bertugas untuk menggabungkan kluster neuron dari lapisan keluaran sebelumnya menjadi satu neuron pada layer selanjutnya. Misalnya, pada lapisan m\textit{max-pooling} diambil nilai maksimum dari setiap kluster di lapisan sebelumnya. Contoh lainnya adalah lapisan \textit{average-pooling} yang mengambil nilai rata-rata dari setiap kluster di lapisan sebelumnya.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resources/images/max-pooling.png}
+    \caption{Ilustrasi lapisan \textit{max-pooling}}
+    \label{fig:max-pooling}
+\end{figure}
+
+\textit{Fully connected layer} cara kerjanya sama seperti \textit{multilayer perceptron}, menghubungkan setiap neuron pada lapisan sebelumnya ke setiap neuron yang ada pada lapisan setelah lapisan tersebut.
+\bigskip
+
+Diinspirasi lebih lanjut dari permasalahan mesin translasi yang menggunakan mekanisme \textit{attention}, riset \textcite{Xu2015} mengembangkan lebih lanjut riset \textcite{Vinyals2014} dengan memberikan mekanisme \textit{attention} pada saat \textit{decoder} melakukan pembangkitan deskripsi dari citra.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resources/images/image-captioning-encoder-decoder.png}
+    \caption{Ilustrasi model \textit{encoder-decoder} dengan menggunakan \textit{attention} pada \textit{image captioning} \parencite{Xu2015}.}
+    \label{fig:image-captioning-encoder-decoder}
+\end{figure}
+
 
 \subsection{Pembangkitan Keterangan Otomatis dari Video}
 
+Riset lain yang juga terinspirasi dari perkembangan terkini dalam mesin translasi adalah riset mengenai pembangkitan keterangan otomatis dari video yang dilakukan oleh \textcite{Venugopalan2015}. Model yang dikemukakan menggunakan model \textit{seqence-to-sequence} dengan \textit{recurrent network} yang digunakan sebagai \textit{decoder} dan \textit{encoder}-nya adalah LSTM bertumpuk. Masukan dari LSTM bertumpuk tersebut berupa citra RGB dan informasi \textit{optical flow} yang kemudian keduanya direpresentasikan menjadi sebuah \textit{embedding} dengan menggunakan CNN yang parameternya dilatih bersama-sama dengan parameter yang terdapat pada LSTM bertumpuk.
+\bigskip
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resources/images/video-to-text.png}
+    \caption{Ilustrasi model \textit{video-to-text} \parencite{Chung2017}.}
+    \label{fig:video-to-text}
+\end{figure}
+
+Selain itu ada riset lain yang tidak menggunakan \textit{recurrent network} tetapi menggunakan CNN yang telah dimodifikasi untuk dapat memanfaatkan informasi spasial dan temporal pada video, sehingga diberi nama \textit{spatio-temporal convolutional neural network} (STCNN) \parencite{Karpathy2014}. Cara kerjanya sama seperti CNN hanya saja keterhubungan jaringannya diperluas pada dimensi waktunya sehingga model dapat mempelajari fitur spatio-temporal. Perluasannya tersebut dibagi menjadi tiga, yaitu \textit{early fusion}, \textit{late fusion}, dan \textit{slow fusion}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resources/images/stcnn.png}
+    \caption{Ilustrasi STCNN \parencite{Karpathy2014}.}
+    \label{fig:stcnn}
+\end{figure}
+
+Pada \textit{early fusion}, modelnya menggabungkan informasi temporal di seluruh frame dengan \textit{window} yang telah ditentukan, langsung pada tingkat pixel. Sedangkan pada \textit{late fusion}, dari \textit{window} yang telah ditentukan diambil dua buah frame, frame awal dan frame akhir, lalu masing-masing frame melalui berbagai lapisan konvolusi, lalu menggabungkan kedua representasi yang didapatkan dengan menggunakan \textit{fully connected layer}. Untuk \textit{slow fusion}, merupakan model yang menggabungkan dua pendekatan tadi (\textit{early fusion} dan \textit{late fusion}) dengan cara menggabungkan informasi temporal dari semua frame pada \textit{window} secara perlahan-lahan dan hirarkis.
+
+
 \section{\textit{Visual Speech Recognition}}
+
+Riset \textcite{Chung2017} melakukan task pembangkitan keterangan otomatis dari video yang cakupannya lebih kecil, yaitu melakukan pengenalan gerak bibir untuk \textit{visual speech recognition}. Model yang digunakan dapat dibagi menjadi tiga modul, yaitu modul \textit{Watch}, modul \textit{Listen}, modul \textit{Attend}, dan modul \textit{Spell}, dan bisa diformalisasikan sebagai berikut \parencite{Chung2017}:
+
+\begin{equation*}
+    \begin{split}
+        s^{v}, o^{v} &= Watch(x^{v}) \\
+        s^{a}, o^{a} &= Listen(x^{a}) \\
+        P(y|x^{v}, x^{a}) &= Spell(s^{v}, s^{a}, o^{v}, o^{a})
+    \end{split}
+\end{equation*}
+
+Modul \textit{Watch}, merupakan \textit{encoder} citra yang terdiri atas modul konvolusi yang menghasilkan fitur citra \(f^{v}_{i}\) untuk setiap masukan di \textit{time-step} \(x^{v}_{i}\), ditambah dengan sebuah modul rekuren yang menghasilkan fixed-length vector \(s^{v}\) dan sekumpulan vektor output \(o^{v}\).
+\bigskip
+
+Modul \textit{Listen}, merupakan \textit{encoder} yang berisi sama seperti modul \textit{Watch} tetapi tanpa memiliki modul konvolusi. Modul rekurennya menerima masukan berupa hasil ekstraksi fitur menggunakan MFCC berdimensi 13, lalu dari modul rekuren tersebut dihasilkan vektor berukuran tetap \(s^{a}\) dan sekumpulan vektor keluaran \(o^{a}\).
+\bigskip
+
+Modul \textit{Spell}, berbasis pada transduser LSTM dan menghasilkan keluaran berupa rangkaian token pada level karakter. Modul ini bisa diformulasikan sebagai berikut \parencite{Chung2017}.
+
+\begin{equation*}
+    \begin{split}
+        h^{d}_{k}, h^{d}_{k} &= LSTM(h^{d}_{k-1}, y_{k-1}, c^{v}_{k-1}, c^{a}_{k-1}) \\
+        c^{v}_{k} &= o^{v} \cdot Attention^{v}(h^{d}_{k}, o^{v}) \\
+        c^{a}_{k} &= o^{a} \cdot Attention^{a}(h^{d}_{k}, o^{a}) \\
+        P(y_{i} | x^{v}, x^{a}, y_{<i}) &= softmax(MLP(o^{d}_{k}, c^{v}_{k}, c^{a}_{k}))
+    \end{split}
+\end{equation*}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resources/images/wlas.png}
+    \caption{Arsitektur model \textit{Watch}, \textit{Listen}, \textit{Attend}, dan \textit{Spell} \parencite{Chung2017}.}
+    \label{fig:wlas}
+\end{figure}
