@@ -18,7 +18,7 @@ Selain riset tersebut, pada saat penulisan, hanya ada satu paper mengenai \texti
 
 \section{Analisis Model \textit{sequence-to-sequence}}
 
-Salah satu permasalahan yang ditemui dari penggunaan model \textit{sequence-to-sequence} dalam mentransduksi sebuah rangkaian menjadi rangkaian lain adalah kebanyakan model ini menggunakan RNN atau variannya sehingga prosesnya tidak bisa diparalelisasi karena sifatnya yang rekurens. Oleh sebab itu, proses pelatihan model membutuhkan waktu yang lama hingga model akhirnya konvergen. Pada riset \textcite{Vaswani2017} di usulkan model yang disebut sebagai model transformer, sebuah arsitektur model yang menghindari penggunaan rekurens dan bergantung sepenuhnya pada mekanisme \textit{attention} untuk menggambarkan dependensi global antara masukan dan keluaran. Selain itu model transformer ini memungkinkan dilakukannya paralelisasi sehingga dapat mempercepat proses pelatihan model, dan juga berhasil mengungguli model \textit{encoder-decoder} berbasis RNN dalam mentransduksi rangkaian.
+Salah satu permasalahan yang ditemui dalam penggunaan model \textit{sequence-to-sequence} untuk mentransduksi sebuah rangkaian menjadi rangkaian lain adalah kebanyakan model ini menggunakan RNN atau variannya sehingga prosesnya tidak bisa diparalelisasi karena sifatnya yang rekurens. Oleh sebab itu, proses pelatihan model membutuhkan waktu yang lama hingga model akhirnya konvergen. Pada riset \textcite{Vaswani2017} di usulkan model yang disebut sebagai model transformer, sebuah arsitektur model yang menghindari penggunaan rekurens dan bergantung sepenuhnya pada mekanisme \textit{attention} untuk menggambarkan dependensi global antara masukan dan keluaran. Selain itu model transformer ini memungkinkan dilakukannya paralelisasi sehingga dapat mempercepat proses pelatihan model, dan juga berhasil mengungguli model \textit{encoder-decoder} berbasis RNN dalam mentransduksi rangkaian.
 
 \section{Usulan Solusi}
 
@@ -34,7 +34,7 @@ Berikut adalah rancangan arsitektur penyelesaian permasalahan pengenalan suara d
 Rangkaian penyelesaiannya adalah sebagai berikut.
 \begin{enumerate}
     \item Melakukan perancangan model akustik dengan menggunakan model transformer (Gambar \ref{fig:usulan-arsitektur}) dan melakukan pelatihan model menggunakan dataset dalam bahasa Indonesia. Masukan yang digunakan adalah \textit{raw speech} yang kemudian diekstraksi fiturnya dengan menggunakan MFCC.
-    \item Melakukan perancangan model untuk bagian \textit{visual speech recognition} (VSR) dengan menggunakan model transformer (Gambar \ref{fig:usulan-arsitektur}) dan melakukan pelatihan model menggunakan dataset dalam bahasa Indonesia. Masukan yang digunakan adalah frame video yang direpresentasikan menjadi \textit{fixed-length vector} dengan menggunakan CNN.
+    \item Melakukan perancangan model untuk bagian \textit{visual speech recognition} dengan menggunakan model transformer (Gambar \ref{fig:usulan-arsitektur}) dan melakukan pelatihan model menggunakan dataset dalam bahasa Indonesia. Masukan yang digunakan adalah frame video yang direpresentasikan menjadi \textit{fixed-length vector} dengan menggunakan CNN.
     \item Melakukan penggabungan kedua model ASR dan VSR, dan melakukan pelatihan secara bersama-sama.
 \end{enumerate}
 
