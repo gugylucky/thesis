@@ -48,7 +48,7 @@
 
     % \input{chapters/abstract-id}
     % \input{chapters/abstract-en}
-    % \input{chapters/approval}
+    \input{chapters/approval}
     % \input{chapters/guidelines}
     % \input{chapters/forewords}
     
@@ -64,13 +64,13 @@
     \titleformat{\section}{\bfseries\sffamily\large}{\thesection.}{\hspace{1cm}}{}%
  	\titleformat{\subsection}{\bfseries\sffamily\large}{\thesection.}{\hspace{1cm}}{}%
  	\titleformat{\subsubsection}{\bfseries\sffamily\large}{\thesection.}{\hspace{1cm}}{}%
-    % \tableofcontents
+    \tableofcontents
     % \clearpage
 
     \addcontentsline{toc}{chapter}{Daftar Gambar}
-    % \listoffigures
+    \listoffigures
     \addcontentsline{toc}{chapter}{Daftar Tabel}
-    % \listoftables
+    \listoftables
     % \clearpage
     
     \titleformat*{\section}{\bfseries\normalsize}
@@ -107,16 +107,17 @@
     % Daftar Bab
     % Untuk menambahkan daftar bab, buat berkas bab misalnya `chapter-6` di direktori `chapters`, dan masukkan ke sini.
     %----------------------------------------------------------------%
-    \setcounter{chapter}{2}
+    \setcounter{chapter}{3}
     % \input{chapters/chapter-1}
     % \input{chapters/chapter-2}
-    \input{chapters/chapter-3}
-    % \input{chapters/chapter-4}
+    % \input{chapters/chapter-3}
+    \input{chapters/chapter-4}
     % \input{chapters/chapter-5}
     %----------------------------------------------------------------%
 
     % Daftar pustaka
-    % \printbibliography[heading=bibintoc,title=Daftar Pustaka]
+    \setquotestyle{english}
+    \printbibliography[heading=bibintoc,title=Daftar Pustaka]
 
     % Index
     % \appendix
